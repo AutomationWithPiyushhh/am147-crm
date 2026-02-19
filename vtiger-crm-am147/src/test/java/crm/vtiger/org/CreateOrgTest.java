@@ -1,48 +1,40 @@
 package crm.vtiger.org;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Properties;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
+
+import generic_utility.FileUtility;
+import generic_utility.JavaUtility;
+import generic_utility.WebDriverUtility;
+import object_repository.HomePage;
+import object_repository.LoginPage;
 
 public class CreateOrgTest {
 	public static void main(String[] args) throws InterruptedException, IOException {
 
 //		get the data from properties file
-		FileInputStream fis1 = new FileInputStream("./src/test/resources/commondata.properties");
+		FileUtility fUtil = new FileUtility();
 
-		Properties pObj = new Properties();
-		pObj.load(fis1);
+		String BROWSER = fUtil.getDataFromPropertiesFile("bro");
+		String URL = fUtil.getDataFromPropertiesFile("url");
+		String USERNAME = fUtil.getDataFromPropertiesFile("un");
+		String PASSWORD = fUtil.getDataFromPropertiesFile("pwd");
 
-		String BROWSER = pObj.getProperty("bro");
-		String URL = pObj.getProperty("url");
-		String USERNAME = pObj.getProperty("un");
-		String PASSWORD = pObj.getProperty("pwd");
+		int random = JavaUtility.generateRanNum();
 
-		int random = (int) (Math.random() * 999);
+//		get the data from excel file		
+		String orgName = fUtil.getDataFromExcelFile("org", 7, 0) + random;
 
-		
-//		get the data from excel file
-		FileInputStream fis2 = new FileInputStream("./src/test/resources/testScriptData.xlsx");
-		Workbook wb = WorkbookFactory.create(fis2);
-		Cell cell = wb.getSheet("org").getRow(7).getCell(0);
-		String orgName = cell.getStringCellValue() + random;
-		
 //		open the browser
 		WebDriver driver = null;
 //		String browser = "chrome"; // hardcoded browser
-
 		if (BROWSER.equals("chrome")) {
 			driver = new ChromeDriver();
 		} else if (BROWSER.equals("edge")) {
@@ -57,24 +49,24 @@ public class CreateOrgTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 
 //		Login with valid credentials	
-//		driver.get("http://localhost:8888/");  // hardcoded
-		driver.get(URL);					   // DDT
+		driver.get(URL);
+		LoginPage lp = new LoginPage(driver);
 
-		WebElement un = driver.findElement(By.name("user_name"));
+		WebElement un = lp.getUn();
+		WebElement pwd = lp.getPwd();
+		WebElement loginBtn = lp.getLoginBtn();
+
 		un.sendKeys(USERNAME);
-
-		WebElement pwd = driver.findElement(By.name("user_password"));
 		pwd.sendKeys(PASSWORD);
-
-		WebElement loginBtn = driver.findElement(By.id("submitButton"));
 		loginBtn.click();
 
 //		Create organization
-		driver.findElement(By.linkText("Organizations")).click();
+		HomePage hp = new HomePage(driver);
+
+		hp.getOrgLink().click();
 
 		driver.findElement(By.cssSelector("img[title='Create Organization...']")).click();
 
-		
 //		String orgName = "qspiders_" + random;
 		WebElement orgField = driver.findElement(By.name("accountname"));
 		orgField.sendKeys(orgName);
@@ -95,13 +87,15 @@ public class CreateOrgTest {
 		}
 
 //		logout
-		WebElement profile = driver.findElement(By.cssSelector("img[src='themes/softed/images/user.PNG']"));
+		WebElement profile = hp.getProfile();
 		Thread.sleep(1000);
-		Actions act = new Actions(driver);
-		act.moveToElement(profile).build().perform();
+		
+		WebDriverUtility wdUtil = new WebDriverUtility(driver);
+		wdUtil.hover(profile);
+		
 		Thread.sleep(2000);
-		driver.findElement(By.linkText("Sign Out")).click();
-
+		hp.getSignOutLink().click();
+		
 //		close the browser
 		Thread.sleep(3000);
 		driver.quit();

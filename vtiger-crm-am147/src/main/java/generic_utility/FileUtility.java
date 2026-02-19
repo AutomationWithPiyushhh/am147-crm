@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 public class FileUtility {
-	String getDataFromPropertiesFile(String key) throws IOException {
+	public String getDataFromPropertiesFile(String key) throws IOException {
 		FileInputStream fis = new FileInputStream("./src/test/resources/commondata.properties");
 		Properties pObj = new Properties();
 		pObj.load(fis);
@@ -20,7 +20,7 @@ public class FileUtility {
 		return value;
 	}
 
-	String getDataFromExcelFile(String sheetName, int rowNum, int cellNum)
+	public String getDataFromExcelFile(String sheetName, int rowNum, int cellNum)
 			throws EncryptedDocumentException, IOException {
 		FileInputStream fis = new FileInputStream("./src/test/resources/testScriptData.xlsx");
 		Workbook wb = WorkbookFactory.create(fis);

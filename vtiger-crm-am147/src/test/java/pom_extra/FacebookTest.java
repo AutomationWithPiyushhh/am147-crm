@@ -1,6 +1,5 @@
 package pom_extra;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,6 +29,13 @@ class FacebookLoginPage {
 	public WebElement getPwd() {
 		return pwd;
 	}
+
+	@FindBy(xpath = "//span[text()='Log in']")
+	private WebElement loginBtn;
+
+	public WebElement getLoginBtn() {
+		return loginBtn;
+	}
 }
 
 class FacebookCNAPage {
@@ -47,9 +53,16 @@ public class FacebookTest {
 
 //		utilization
 		FacebookLoginPage lp = new FacebookLoginPage(driver);
+		WebElement un = lp.getUn();
+		WebElement pwd = lp.getPwd();
+		WebElement loginBtn = lp.getLoginBtn();
+
 		driver.navigate().refresh();
 		Thread.sleep(2000);
-		lp.getUn().sendKeys("admin");
+
+		un.sendKeys("admin");
+		pwd.sendKeys("12345678");
+		loginBtn.click();
 
 		Thread.sleep(3000);
 		driver.quit();
