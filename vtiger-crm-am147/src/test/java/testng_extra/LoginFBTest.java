@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class LoginFBTest {
 	
-	@Test(dataProvider = "getData",invocationCount = 2)
+	@Test(dataProvider = "getData")
 	public void login(String username, String password) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
@@ -23,9 +23,9 @@ public class LoginFBTest {
 //		String password = "admin@123";
 		
 		new Actions(driver)
-		.pause(Duration.ofSeconds(1))
-		.sendKeys(username + Keys.TAB + password + Keys.ENTER)
-		.build().perform();
+			.pause(Duration.ofSeconds(1))
+			.sendKeys(username + Keys.TAB + password + Keys.ENTER)
+			.build().perform();
 		
 		
 		Thread.sleep(1000);
