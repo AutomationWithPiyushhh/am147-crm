@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 
 import generic_utility.FileUtility;
 import generic_utility.JavaUtility;
@@ -78,14 +79,17 @@ public class CreateOrgTest {
 
 //		verification
 		String actOrgName = driver.findElement(By.id("dtlview_Organization Name")).getText();
-		boolean status = actOrgName.equals(orgName);
 
-		if (status) {
-			System.out.println("Organization created successfullyyyyy !!!!");
-		} else {
-			System.out.println("Could not create org.....");
-		}
+//		boolean status = actOrgName.equals(orgName + "123");
 
+//		if (status) {
+//			System.out.println("Organization created successfullyyyyy !!!!");
+//		} else {
+//			System.out.println("Could not create org.....");
+//		}
+
+		Assert.assertEquals(orgName, actOrgName);
+		
 //		logout
 		WebElement profile = hp.getProfile();
 		Thread.sleep(1000);

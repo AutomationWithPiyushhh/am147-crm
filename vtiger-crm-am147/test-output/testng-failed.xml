@@ -3,11 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testng_extra.LoginFBTest">
+      <class name="testng_extra.Practice_Assertion">
         <methods>
-          <include name="login"/>
+          <include name="hardAssertPractice"/>
         </methods>
-      </class> <!-- testng_extra.LoginFBTest -->
+      </class> <!-- testng_extra.Practice_Assertion -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
