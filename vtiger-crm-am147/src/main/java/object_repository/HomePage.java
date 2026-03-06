@@ -17,6 +17,13 @@ public class HomePage {
 		return orgLink;
 	}
 	
+	@FindBy(linkText = "Contacts")
+	private WebElement conLink;
+	
+	public WebElement getConLink() {
+		return conLink;
+	}
+	
 	@FindBy(css = "img[src='themes/softed/images/user.PNG']" )
 	private WebElement profile;
 	

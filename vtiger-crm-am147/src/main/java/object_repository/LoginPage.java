@@ -31,5 +31,14 @@ public class LoginPage {
 		return loginBtn;
 	}
 	
+	public void login(String username, String password) {
+		WebElement un = getUn();
+		WebElement pwd = getPwd();
+		WebElement loginBtn = getLoginBtn();
+
+		un.sendKeys(username);
+		pwd.sendKeys(password);
+		loginBtn.click();
+	}
 	
 }
