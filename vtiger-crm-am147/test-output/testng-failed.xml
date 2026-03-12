@@ -3,14 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="advance_reports.LoginTest">
+      <class name="extra.HandlingFrames">
         <methods>
-          <include name="repBackup"/>
-          <include name="repConfig"/>
-          <include name="xLoginTest"/>
-          <include name="fbLoginTest"/>
+          <include name="awpFrames"/>
         </methods>
-      </class> <!-- advance_reports.LoginTest -->
+      </class> <!-- extra.HandlingFrames -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
