@@ -1,6 +1,7 @@
 package generic_utility;
 
 import java.time.Duration;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -60,5 +61,16 @@ public class WebDriverUtility {
 	public void doubleClick( WebElement element) {
 		act.doubleClick(element).build().perform();
 	}
+	
+	public void switchToWindowByUrl(String partialUrl) {
+		Set<String> windowHandles = driver.getWindowHandles();
+		for (String handle : windowHandles) {
+			driver.switchTo().window(handle);
+			if (driver.getCurrentUrl().contains(partialUrl)) {
+				break;
+			}
+		}
+	}
+
 
 }
