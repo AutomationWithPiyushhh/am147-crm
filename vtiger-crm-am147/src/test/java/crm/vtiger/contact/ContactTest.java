@@ -42,6 +42,12 @@ public class ContactTest {
 //	}
 
 	@Test
+	public void passMethod() {
+		System.out.println("i am passed, everything is alright....");
+	}
+	
+	
+	@Test
 	public void createContactWithOrgNameTest() throws InterruptedException, EncryptedDocumentException, IOException {
 
 		WebDriver driver = new ChromeDriver();
