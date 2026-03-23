@@ -1,5 +1,8 @@
 package extra;
 
-public class DemoForPulling {
-  System.out.println("Automation");
+public class DemoForPulling {	
+	public static void main(String[] args) {
+
+		  System.out.println("Automation");
+	}
 }
